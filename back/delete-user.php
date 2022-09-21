@@ -1,12 +1,16 @@
 <?php
+// CORS 문제 해결
+header('Access-Control-Allow-Origin: *');
+
+
 // Video 1 
 header('content-type: application/json');
 // header('Access-Control-Allow-Methods: DELETE');
 
-if (!isset($_GET['id'])) {
+if (!isset($_POST['id'])) {
   err('id가 없다.', __LINE__);
 }
-if (!ctype_digit($_GET['id'])) {
+if (!ctype_digit($_POST['id'])) {
   err('유효한 아이디가 아니에요.', __LINE__);
 }
 
@@ -18,7 +22,7 @@ require_once(__DIR__ . '/protected/database.php');
 try {
   // Video 4
   $q = $db->prepare('DELETE FROM users WHERE id = :id');
-  $q->bindValue(':id', $_GET['id']); // NO SQL INJECTION
+  $q->bindValue(':id', $_POST['id']); // NO SQL INJECTION
   $q->execute();
 
   echo 'rowCount의 값은: ' . $q->rowCount() . PHP_EOL . PHP_EOL;

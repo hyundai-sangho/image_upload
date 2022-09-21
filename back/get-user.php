@@ -1,4 +1,8 @@
 <?php
+// CORS 문제 해결
+header('Access-Control-Allow-Origin: *');
+
+
 // Video 1 
 header('content-type: application/json');
 
